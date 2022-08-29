@@ -1,6 +1,6 @@
 zabbix_export:
   version: '6.0'
-  date: '2022-08-29T18:20:02Z'
+  date: '2022-08-29T18:22:46Z'
   groups:
     -
       uuid: 846977d1dfed4968bc5f8bdb363285bc
@@ -385,6 +385,7 @@ zabbix_export:
               expression: 'change(/Proxmox Backup Server by HTTP/pbs.tasks.failed)>0'
               name: 'PBS: New failed tasks'
               priority: WARNING
+              manual_close: 'YES'
         -
           uuid: aff3e30fbe5a49c683f48af8851e9ee8
           name: 'PBS: Version'
