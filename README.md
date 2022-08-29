@@ -86,7 +86,7 @@ Tested on Zabbix 6.0.7 and Proxmox Backup Server 2.2
 ## Usage
 
 - Issue new token in Configuraion -> Access Control -> API Token
-- Add API Token permission `Audit` to `/datastore` and to `/system/status` in Configuraion -> Access Control -> Permissions (Please note that the user on whose behalf the token is issued must have the appropriate rights)
+- Add API Token permission `Audit` to `/datastore`, `/system/status` and `/system/tasks` in Configuraion -> Access Control -> Permissions (Please note that the user on whose behalf the token is issued must have the appropriate rights)
 - Import `zbx_tmplt_pbs.yaml` to Zabbix
 - Attach new template `Proxmox Backup Server by HTTP` to host
 - Configure macros:
