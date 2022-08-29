@@ -1,6 +1,6 @@
 zabbix_export:
   version: '6.0'
-  date: '2022-08-29T13:40:45Z'
+  date: '2022-08-29T18:20:02Z'
   groups:
     -
       uuid: 846977d1dfed4968bc5f8bdb363285bc
@@ -363,6 +363,28 @@ zabbix_export:
             -
               name: Authorization
               value: 'PBSAPIToken={$PBS.TOKEN.ID}:{$PBS.TOKEN.SECRET}'
+        -
+          uuid: ccce5f04d3fd4ae19b448fcc83726621
+          name: 'PBS: Failed tasks count'
+          type: HTTP_AGENT
+          key: pbs.tasks.failed
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - $.total
+          timeout: 10s
+          url: 'https://{HOST.CONN}:{$PBS.URL.PORT}/api2/json/nodes/{$PBS.NODE.NAME}/tasks?errors=true&limit=0'
+          headers:
+            -
+              name: Authorization
+              value: 'PBSAPIToken={$PBS.TOKEN.ID}:{$PBS.TOKEN.SECRET}'
+          triggers:
+            -
+              uuid: 0d0e4e1076a74b5c8ba80c2d355b66de
+              expression: 'change(/Proxmox Backup Server by HTTP/pbs.tasks.failed)>0'
+              name: 'PBS: New failed tasks'
+              priority: WARNING
         -
           uuid: aff3e30fbe5a49c683f48af8851e9ee8
           name: 'PBS: Version'
