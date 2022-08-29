@@ -84,7 +84,7 @@ Tested on Zabbix 6.0.7 and Proxmox Backup Server 2.2
 ## Usage
 
 - Issue new token in Configuraion -> Access Control -> API Token
-- Add API Token permission `Audit` to `/` in Configuraion -> Access Control -> Permissions
+- Add API Token permission `Admin` to `/` in Configuraion -> Access Control -> Permissions
 - Import `zbx_tmplt_pbs.yaml` to Zabbix
 - Attach new template `Proxmox Backup Server by HTTP` to host
 - Configure macros:
