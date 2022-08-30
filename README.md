@@ -27,43 +27,46 @@ Tested on Zabbix 6.0.7 and Proxmox Backup Server 2.2
 
 ## Items
 
-| Name                                     | Key                          | Type                               | Description                        |
-| ---------------------------------------- | ---------------------------- | ---------------------------------- | ---------------------------------- |
-| PBS: API Ping                            | `pbs.ping`                   | HTTP agent                         | Api availability                   |
-| PBS: Datastores usage                    | `pbs.status.datastore-usage` | HTTP agent                         | Datasource info and status         |
-| PBS: Node status                         | `pbs.node.status`            | HTTP agent                         | Node info and status               |
-| PBS: Failed tasks count                  | `pbs.tasks.failed`           | HTTP agent                         | Count of failed tasks for all time |
-| PBS: Version                             | `pbs.version`                | HTTP agent                         | PBS Version                        |
-| PBS: Node status: PBS Node: cpu usage    | `pbs.node.cpu`               | Dependent (from `pbs.node.status`) | Node CPU Usage in percent          |
-| PBS: Node status: PBS Node: kernel       | `pbs.node.kversion`          | Dependent (from `pbs.node.status`) | Node kernel version                |
-| PBS: Node status: PBS Node: kernel       | `pbs.node.kversion`          | Dependent (from `pbs.node.status`) | Node kernel version                |
-| PBS: Node status: PBS Node: memory       | `pbs.node.memory`            | Dependent (from `pbs.node.status`) | Node memory info                   |
-| PBS Node: memory: PBS Node: memory free  | `pbs.node.memory.free`       | Dependent (from `pbs.node.memory`) | Free memory in bytes               |
-| PBS Node: memory: PBS Node: memory total | `pbs.node.memory.total`      | Dependent (from `pbs.node.memory`) | Total memory in bytes              |
-| PBS Node: memory: PBS Node: memory used  | `pbs.node.memory.used`       | Dependent (from `pbs.node.memory`) | Used memory in bytes               |
-| PBS Node: memory used percent            | `pbs.node.memory.pused`      | Calculated                         | Used memory in percent             |
-| PBS: Node status: PBS Node: swap         | `pbs.node.swap`              | Dependent (from `pbs.node.status`) | Node swap info                     |
-| PBS Node: swap: PBS Node: swap free      | `pbs.node.swap.free`         | Dependent (from `pbs.node.swap`)   | Free swap in bytes                 |
-| PBS Node: swap: PBS Node: swap total     | `pbs.node.swap.total`        | Dependent (from `pbs.node.swap`)   | Total swap in bytes                |
-| PBS Node: swap: PBS Node: swap used      | `pbs.node.swap.used`         | Dependent (from `pbs.node.swap`)   | Used swap in bytes                 |
-| PBS Node: swap used percent              | `pbs.node.swap.pused`        | Calculated                         | Used swap in percent               |
-| PBS: Node status: PBS Node: root         | `pbs.node.root`              | Dependent (from `pbs.node.status`) | Node root info                     |
-| PBS Node: root: PBS Node: root avail     | `pbs.node.root.avail`        | Dependent (from `pbs.node.root`)   | Free root in bytes                 |
-| PBS Node: root: PBS Node: root total     | `pbs.node.root.total`        | Dependent (from `pbs.node.root`)   | Total root in bytes                |
-| PBS Node: root: PBS Node: root used      | `pbs.node.root.used`         | Dependent (from `pbs.node.root`)   | Used root in bytes                 |
-| PBS Node: root used percent              | `pbs.node.root.pused`        | Calculated                         | Used root in percent               |
-| PBS: Node status: PBS Node: uptime       | `pbs.node.uptime`            | Dependent (from `pbs.node.status`) | Node uptime in seconds             |
+| Name                                     | Key                                 | Type                                | Description                             |
+| ---------------------------------------- | ----------------------------------- | ----------------------------------- | --------------------------------------- |
+| PBS: API Ping                            | `pbs.ping`                          | HTTP agent                          | Api availability                        |
+| PBS: Datastores usage                    | `pbs.status.datastore-usage`        | HTTP agent                          | Datasource info and status              |
+| PBS: Node status                         | `pbs.node.status`                   | HTTP agent                          | Node info and status                    |
+| PBS: Failed tasks                        | `pbs.tasks.failed`                  | HTTP agent                          | Failed tasks for all time               |
+| PBS: Failed backup tasks count           | `pbs.tasks.failed.count_backup`     | Dependent (from `pbs.tasks.failed`) | Failed backup tasks count               |
+| PBS: Last failed backup task             | `pbs.tasks.failed.last_backup`      | Dependent (from `pbs.tasks.failed`) | Last failed backup task data            |
+| PBS: Last failed backup task time        | `pbs.tasks.failed.last_backup_time` | Dependent (from `pbs.tasks.failed`) | Last failed backup task time (unixtime) |
+| PBS: Version                             | `pbs.version`                       | HTTP agent                          | PBS Version                             |
+| PBS: Node status: PBS Node: cpu usage    | `pbs.node.cpu`                      | Dependent (from `pbs.node.status`)  | Node CPU Usage in percent               |
+| PBS: Node status: PBS Node: kernel       | `pbs.node.kversion`                 | Dependent (from `pbs.node.status`)  | Node kernel version                     |
+| PBS: Node status: PBS Node: kernel       | `pbs.node.kversion`                 | Dependent (from `pbs.node.status`)  | Node kernel version                     |
+| PBS: Node status: PBS Node: memory       | `pbs.node.memory`                   | Dependent (from `pbs.node.status`)  | Node memory info                        |
+| PBS Node: memory: PBS Node: memory free  | `pbs.node.memory.free`              | Dependent (from `pbs.node.memory`)  | Free memory in bytes                    |
+| PBS Node: memory: PBS Node: memory total | `pbs.node.memory.total`             | Dependent (from `pbs.node.memory`)  | Total memory in bytes                   |
+| PBS Node: memory: PBS Node: memory used  | `pbs.node.memory.used`              | Dependent (from `pbs.node.memory`)  | Used memory in bytes                    |
+| PBS Node: memory used percent            | `pbs.node.memory.pused`             | Calculated                          | Used memory in percent                  |
+| PBS: Node status: PBS Node: swap         | `pbs.node.swap`                     | Dependent (from `pbs.node.status`)  | Node swap info                          |
+| PBS Node: swap: PBS Node: swap free      | `pbs.node.swap.free`                | Dependent (from `pbs.node.swap`)    | Free swap in bytes                      |
+| PBS Node: swap: PBS Node: swap total     | `pbs.node.swap.total`               | Dependent (from `pbs.node.swap`)    | Total swap in bytes                     |
+| PBS Node: swap: PBS Node: swap used      | `pbs.node.swap.used`                | Dependent (from `pbs.node.swap`)    | Used swap in bytes                      |
+| PBS Node: swap used percent              | `pbs.node.swap.pused`               | Calculated                          | Used swap in percent                    |
+| PBS: Node status: PBS Node: root         | `pbs.node.root`                     | Dependent (from `pbs.node.status`)  | Node root info                          |
+| PBS Node: root: PBS Node: root avail     | `pbs.node.root.avail`               | Dependent (from `pbs.node.root`)    | Free root in bytes                      |
+| PBS Node: root: PBS Node: root total     | `pbs.node.root.total`               | Dependent (from `pbs.node.root`)    | Total root in bytes                     |
+| PBS Node: root: PBS Node: root used      | `pbs.node.root.used`                | Dependent (from `pbs.node.root`)    | Used root in bytes                      |
+| PBS Node: root used percent              | `pbs.node.root.pused`               | Calculated                          | Used root in percent                    |
+| PBS: Node status: PBS Node: uptime       | `pbs.node.uptime`                   | Dependent (from `pbs.node.status`)  | Node uptime in seconds                  |
 
 ## Triggers
 
-| Name                           | Severity | Description                                           |
-| ------------------------------ | -------- | ----------------------------------------------------- |
-| PBS: API service not available | High     | PBS Api is unavailable                                |
-| PBS: New failed tasks          | Warning  | New failed tasks since last check                     |
-| PBS: Node high cpu usage       | Average  | High cpu usage (> `{$PBS.STORAGE.PUSE.MAX.WARN}` %)   |
-| PBS: Node high memory usage    | Average  | High memory usage (> `{$PBS.MEMORY.PUSE.MAX.WARN}` %) |
-| PBS: Node high swap usage      | Average  | High swap usage (> `{$PBS.SWAP.PUSE.MAX.WARN}` %)     |
-| PBS: Node high root usage      | Average  | High root usage (> `{$PBS.ROOT.PUSE.MAX.WARN}` %)     |
+| Name                           | Severity | Description                                                  |
+| ------------------------------ | -------- | ------------------------------------------------------------ |
+| PBS: API service not available | High     | PBS Api is unavailable                                       |
+| PBS: New failed backup task    | Average  | New failed backup task sinc last 24h (**Manual close only**) |
+| PBS: Node high cpu usage       | Average  | High cpu usage (> `{$PBS.STORAGE.PUSE.MAX.WARN}` %)          |
+| PBS: Node high memory usage    | Average  | High memory usage (> `{$PBS.MEMORY.PUSE.MAX.WARN}` %)        |
+| PBS: Node high swap usage      | Average  | High swap usage (> `{$PBS.SWAP.PUSE.MAX.WARN}` %)            |
+| PBS: Node high root usage      | Average  | High root usage (> `{$PBS.ROOT.PUSE.MAX.WARN}` %)            |
 
 ## Autodiscovery
 

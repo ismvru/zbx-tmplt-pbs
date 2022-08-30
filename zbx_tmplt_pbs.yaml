@@ -1,6 +1,6 @@
 zabbix_export:
   version: '6.0'
-  date: '2022-08-29T18:22:46Z'
+  date: '2022-08-30T16:38:11Z'
   groups:
     -
       uuid: 846977d1dfed4968bc5f8bdb363285bc
@@ -365,27 +365,79 @@ zabbix_export:
               value: 'PBSAPIToken={$PBS.TOKEN.ID}:{$PBS.TOKEN.SECRET}'
         -
           uuid: ccce5f04d3fd4ae19b448fcc83726621
-          name: 'PBS: Failed tasks count'
+          name: 'PBS: Failed tasks'
           type: HTTP_AGENT
           key: pbs.tasks.failed
-          preprocessing:
-            -
-              type: JSONPATH
-              parameters:
-                - $.total
+          history: '0'
+          trends: '0'
+          value_type: TEXT
           timeout: 10s
-          url: 'https://{HOST.CONN}:{$PBS.URL.PORT}/api2/json/nodes/{$PBS.NODE.NAME}/tasks?errors=true&limit=0'
+          url: 'https://{HOST.CONN}:{$PBS.URL.PORT}/api2/json/nodes/{$PBS.NODE.NAME}/tasks'
+          query_fields:
+            -
+              name: errors
+              value: 'true'
+            -
+              name: limit
+              value: '0'
           headers:
             -
               name: Authorization
               value: 'PBSAPIToken={$PBS.TOKEN.ID}:{$PBS.TOKEN.SECRET}'
-          triggers:
+        -
+          uuid: afa0d72849af417883c66c8e19dbd3bc
+          name: 'PBS: Failed backup tasks count'
+          type: DEPENDENT
+          key: pbs.tasks.failed.count_backup
+          delay: '0'
+          preprocessing:
             -
-              uuid: 0d0e4e1076a74b5c8ba80c2d355b66de
-              expression: 'change(/Proxmox Backup Server by HTTP/pbs.tasks.failed)>0'
-              name: 'PBS: New failed tasks'
-              priority: WARNING
-              manual_close: 'YES'
+              type: JSONPATH
+              parameters:
+                - '$.data[?(@.worker_type == "backup")].length()'
+          master_item:
+            key: pbs.tasks.failed
+        -
+          uuid: 8a5de2ea308843f6b99b14751abb7948
+          name: 'PBS: Last failed backup task'
+          type: DEPENDENT
+          key: pbs.tasks.failed.last_backup
+          delay: '0'
+          trends: '0'
+          value_type: TEXT
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$.data[?(@.worker_type == "backup")].first()'
+            -
+              type: DISCARD_UNCHANGED
+              parameters:
+                - ''
+          master_item:
+            key: pbs.tasks.failed
+        -
+          uuid: 6e87de4cc7864260aa31471907619c67
+          name: 'PBS: Last failed backup task time'
+          type: DEPENDENT
+          key: pbs.tasks.failed.last_backup_time
+          delay: '0'
+          units: unixtime
+          preprocessing:
+            -
+              type: JSONPATH
+              parameters:
+                - '$.data[?(@.worker_type == "backup")].first()'
+            -
+              type: JSONPATH
+              parameters:
+                - $.endtime
+            -
+              type: DISCARD_UNCHANGED
+              parameters:
+                - ''
+          master_item:
+            key: pbs.tasks.failed
         -
           uuid: aff3e30fbe5a49c683f48af8851e9ee8
           name: 'PBS: Version'
@@ -533,3 +585,11 @@ zabbix_export:
           macro: '{$PBS.URL.PORT}'
           value: '8007'
           description: 'The API uses the HTTPS protocol and the server listens to port 8007 by default.'
+  triggers:
+    -
+      uuid: 35eaaae4afdd438d97b9cd01c3a81a24
+      expression: 'change(/Proxmox Backup Server by HTTP/pbs.tasks.failed.last_backup)<>0 and (now() - last(/Proxmox Backup Server by HTTP/pbs.tasks.failed.last_backup_time) < 86400)'
+      recovery_mode: NONE
+      name: 'PBS: New failed backup task'
+      priority: AVERAGE
+      manual_close: 'YES'
