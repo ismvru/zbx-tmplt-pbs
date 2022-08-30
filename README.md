@@ -59,14 +59,14 @@ Tested on Zabbix 6.0.7 and Proxmox Backup Server 2.2
 
 ## Triggers
 
-| Name                           | Severity | Description                                                  |
-| ------------------------------ | -------- | ------------------------------------------------------------ |
-| PBS: API service not available | High     | PBS Api is unavailable                                       |
-| PBS: New failed backup task    | Average  | New failed backup task sinc last 24h (**Manual close only**) |
-| PBS: Node high cpu usage       | Average  | High cpu usage (> `{$PBS.STORAGE.PUSE.MAX.WARN}` %)          |
-| PBS: Node high memory usage    | Average  | High memory usage (> `{$PBS.MEMORY.PUSE.MAX.WARN}` %)        |
-| PBS: Node high swap usage      | Average  | High swap usage (> `{$PBS.SWAP.PUSE.MAX.WARN}` %)            |
-| PBS: Node high root usage      | Average  | High root usage (> `{$PBS.ROOT.PUSE.MAX.WARN}` %)            |
+| Name                           | Severity | Description                                           |
+| ------------------------------ | -------- | ----------------------------------------------------- |
+| PBS: API service not available | High     | PBS Api is unavailable                                |
+| PBS: New failed backup task    | Average  | New failed backup task since last 24h                 |
+| PBS: Node high cpu usage       | Average  | High cpu usage (> `{$PBS.STORAGE.PUSE.MAX.WARN}` %)   |
+| PBS: Node high memory usage    | Average  | High memory usage (> `{$PBS.MEMORY.PUSE.MAX.WARN}` %) |
+| PBS: Node high swap usage      | Average  | High swap usage (> `{$PBS.SWAP.PUSE.MAX.WARN}` %)     |
+| PBS: Node high root usage      | Average  | High root usage (> `{$PBS.ROOT.PUSE.MAX.WARN}` %)     |
 
 ## Autodiscovery
 

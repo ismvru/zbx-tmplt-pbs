@@ -1,6 +1,6 @@
 zabbix_export:
   version: '6.0'
-  date: '2022-08-30T16:38:11Z'
+  date: '2022-08-30T16:56:59Z'
   groups:
     -
       uuid: 846977d1dfed4968bc5f8bdb363285bc
@@ -589,7 +589,8 @@ zabbix_export:
     -
       uuid: 35eaaae4afdd438d97b9cd01c3a81a24
       expression: 'change(/Proxmox Backup Server by HTTP/pbs.tasks.failed.last_backup)<>0 and (now() - last(/Proxmox Backup Server by HTTP/pbs.tasks.failed.last_backup_time) < 86400)'
-      recovery_mode: NONE
+      recovery_mode: RECOVERY_EXPRESSION
+      recovery_expression: 'change(/Proxmox Backup Server by HTTP/pbs.tasks.failed.last_backup)=0 and (now() - last(/Proxmox Backup Server by HTTP/pbs.tasks.failed.last_backup_time) > 86400)'
       name: 'PBS: New failed backup task'
       priority: AVERAGE
       manual_close: 'YES'
