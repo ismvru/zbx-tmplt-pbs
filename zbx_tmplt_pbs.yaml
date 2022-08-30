@@ -1,6 +1,6 @@
 zabbix_export:
   version: '6.0'
-  date: '2022-08-30T16:38:11Z'
+  date: '2022-08-30T16:48:57Z'
   groups:
     -
       uuid: 846977d1dfed4968bc5f8bdb363285bc
@@ -592,4 +592,5 @@ zabbix_export:
       recovery_mode: NONE
       name: 'PBS: New failed backup task'
       priority: AVERAGE
+      type: MULTIPLE
       manual_close: 'YES'
