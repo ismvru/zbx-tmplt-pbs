@@ -1,6 +1,6 @@
 zabbix_export:
   version: '6.0'
-  date: '2022-08-30T16:56:59Z'
+  date: '2022-08-30T17:36:24Z'
   groups:
     -
       uuid: 846977d1dfed4968bc5f8bdb363285bc
@@ -411,9 +411,9 @@ zabbix_export:
               parameters:
                 - '$.data[?(@.worker_type == "backup")].first()'
             -
-              type: DISCARD_UNCHANGED
+              type: DISCARD_UNCHANGED_HEARTBEAT
               parameters:
-                - ''
+                - '300'
           master_item:
             key: pbs.tasks.failed
         -
@@ -433,9 +433,9 @@ zabbix_export:
               parameters:
                 - $.endtime
             -
-              type: DISCARD_UNCHANGED
+              type: DISCARD_UNCHANGED_HEARTBEAT
               parameters:
-                - ''
+                - '300'
           master_item:
             key: pbs.tasks.failed
         -
