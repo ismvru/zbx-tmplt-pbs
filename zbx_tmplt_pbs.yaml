@@ -559,8 +559,8 @@ zabbix_export:
           description: 'Maximum used memory in percentage.'
         -
           macro: '{$PBS.NODE.NAME}'
-          value: pbs
-          description: 'Node name of PBS. Needed system info (CPU/RAM, etc of PBS server)'
+          value: localhost
+          description: 'Internal node name of PBS for API. Not used as https host.'
         -
           macro: '{$PBS.ROOT.PUSE.MAX.WARN}'
           value: '90'
