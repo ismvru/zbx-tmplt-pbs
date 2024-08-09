@@ -1,3 +1,5 @@
+# Copyright (C) 2022 Mikhail Isaev <admin@ismv.ru>
+# Copyright (C) 2022 Andrey Gerasimov <esrusia@gmail.com>
 zabbix_export:
   version: '6.0'
   date: '2022-08-30T17:36:24Z'
